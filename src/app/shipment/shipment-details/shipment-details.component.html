@@ -1,0 +1,115 @@
+<div class="  p-2 bg-white">
+    <app-shipment-navigation [shipmentNumber]="shipmentNo"></app-shipment-navigation>
+    <div class="container" style="background-color: rgb(230, 223, 223);">
+        <div *ngIf="isCollapsed">
+            <div class="row" *ngFor="let shipment of shipmentDetails">
+                <div class="col-6 col-md-4">
+                    <div class="shipment-status">{{shipment.Status}}</div>
+                    <div class="m-1">
+                        <div>Shipment Number</div>
+                        <div>
+                            {{shipment.ShipmentNo}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-4">
+                    <div *ngIf="shipment.ExpectedShipmentDate" class="m-1">
+                        <div>Expected Shipment Date</div>
+                        <div>{{shipment.ExpectedShipmentDate}}</div>
+                    </div>
+                </div>
+                <div class="col-md-4 d-none d-md-block">
+                    <div *ngIf="shipment.ToAddress" class="m-1">
+                        <div>Ship To</div>
+                        <div>{{shipment.ToAddress.City}} {{shipment.ToAddress.State}} {{shipment.ToAddress.ZipCode}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div [ngbCollapse]="isCollapsed">
+            <div class="row" *ngFor="let shipment of shipmentDetails">
+                <div class="col-6 p-4 p-md-2">
+                    <div class="shipment-status">{{shipment.Status}}</div>
+                    <div class="m-1">
+                        <div>Shipment Number</div>
+                        <div>
+                            {{shipment.ShipmentNo}}
+                        </div>
+                    </div>
+                    <div *ngIf="shipment.ScacAndService" class="m-1">
+                        <div>Carrier</div>
+                        <div>{{shipment.ScacAndService}}</div>
+                    </div>
+                    <div *ngIf="shipment.AssignedToUserId" class="m-1">
+                        <div>AssignedToUserId</div>
+                        <div>{{shipment.AssignedToUserId}}</div>
+                    </div>
+
+                </div>
+                <div class="col-6 p-4 p-md-2">
+
+                    <div *ngIf="shipment.ExpectedShipmentDate" class="m-1">
+                        <div>Expected Shipment Date</div>
+                        <div>{{shipment.ExpectedShipmentDate}}</div>
+                    </div>
+                    <div *ngIf="shipment.ToAddress" class="m-1">
+                        <div>Customer Info</div>
+                        <div>{{shipment.ToAddress.FirstName}} {{shipment.ToAddress.LastName}}</div>
+                        <div>{{shipment.ToAddress.DayPhone}} </div>
+                        <div>{{shipment.ToAddress.EmailID}} </div>
+                    </div>
+
+                </div>
+                <div class="col-6 p-4 p-md-2">
+                    <div *ngIf="shipment.ToAddress" class="m-1">
+                        <div>Ship To</div>
+                        <div>{{shipment.ToAddress.FirstName}} {{shipment.ToAddress.LastName}}</div>
+                        <div>{{shipment.ToAddress.AddressLine1}} </div>
+                        <div>{{shipment.ToAddress.City}} {{shipment.ToAddress.State}} {{shipment.ToAddress.ZipCode}}
+                        </div>
+                        <div>{{shipment.ToAddress.Country}} </div>
+                    </div>
+                </div>
+                <div class="col-6 p-4 p-md-2">
+                    <div *ngIf="shipment.BillToAddress" class="m-1">
+                        <div>Bill To</div>
+                        <div>{{shipment.BillToAddress.FirstName}} {{shipment.BillToAddress.LastName}}</div>
+                        <div>{{shipment.BillToAddress.AddressLine1}} </div>
+                        <div>{{shipment.BillToAddress.City}} {{shipment.BillToAddress.State}}
+                            {{shipment.BillToAddress.ZipCode}} </div>
+                        <div>{{shipment.BillToAddress.Country}} </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row p-2">
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary btn-sm" type="button" (click)="isCollapsed = !isCollapsed"
+                    aria-controls="collapseExample" aria-expanded="false">
+                    <span *ngIf="!isCollapsed">Hide Info</span>
+                    <span *ngIf="isCollapsed">Show Info</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-4">
+        <h5>Products({{shipmentDetails[0].ShipmentLines.TotalNumberOfRecords}})</h5>
+        <hr>
+        <div class="row">
+            <div class="col-12 col-md-6" *ngFor="let shipmentLine of shipmentDetails[0].ShipmentLines.ShipmentLine">
+                <div class="d-flex justify-content-start align-items-start border-bottom">
+                    <div class="m-2 ">
+                        <img src="{{shipmentLine.OrderLine.ItemDetails.ImageUrl}}" alt="" 
+                            width="100px" height="100px">
+                    </div>
+                    <div class="m-2">
+                        <div style="color: blue; cursor: pointer;">{{shipmentLine.OrderLine.ItemDetails.Description}}</div>
+                        <div>Prodcut ID: {{shipmentLine.OrderLine.ItemDetails.ItemID}}</div>
+                        <div>Quantity: 1 {{shipmentLine.OrderLine.ItemDetails.DisplayUnitOfMeasure}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,43 @@
+<div class=" mt-4 mb-2 p-2 bg-white">
+    <app-shipment-navigation></app-shipment-navigation>
+    <div class="mr-4 p-2 mt-4">
+        <div class="d-flex justify-content-between">
+            <div style="margin-left: 25px;">
+                <h6> {{ searchResponse.TotalNumberOfRecords}} results</h6>
+            </div>
+            <div>
+                <img src="./assets/filter-solid.svg" alt="filter" id="filter-icon">
+            </div>
+        </div>
+    </div>
+    <div class="container" *ngIf="showSearchResult">
+        <div class="row border p-1 m-1 hover" *ngFor="let shipment of searchResponse.Shipment"
+            (click)="navigateToShipmentDetailsPage(shipment.ShipmentNo)">
+            <div class="col-md-4 col-6">
+                <div> {{shipment.OrderNo}}</div>
+                <div>{{shipment.ShipmentLines.TotalNumberOfRecords}} Products</div>
+                <div>Carrier : {{shipment.ScacAndService}}</div>
+                <div>Shipment # <span class="link"
+                        (click)="navigateToShipmentDetailsPage(shipment.ShipmentNo)">{{shipment.ShipmentNo}}</span>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div>{{shipment.Status}}</div>
+                <div *ngIf="shipment.DeliveryMethod === 'SHP'">
+                    <div>Assigned To : {{shipment.AssignedToUserId}}</div>
+                    <div>Expected Pickup date : {{shipment.ExpectedShipmentDate}}</div>
+                </div>
+                <div *ngIf="shipment.DeliveryMethod === 'PICK'">
+                    <div>Assigned To : {{shipment.AssignedToUserId}}</div>
+                    <div>Expected Pickup date : {{shipment.ExpectedShipmentDate}}</div>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div>Customer Info</div>
+                <div>{{shipment.BillToAddress.FirstName}} {{shipment.BillToAddress.LastName}}</div>
+                <div>{{shipment.BillToAddress.DayPhone}}</div>
+                <div>{{shipment.BillToAddress.EMailID}}</div>
+            </div>
+        </div>
+    </div>
+</div>

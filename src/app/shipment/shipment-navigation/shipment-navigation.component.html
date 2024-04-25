@@ -1,0 +1,20 @@
+<div class=" border-bottom pb-2 ">
+    <div class="d-flex align-items-center justify-content-between ">
+        <div class="d-flex align-items-center justify-content-between">
+            <div>
+                <a><img src="./assets/chevron-left-solid.svg" alt="chevron-left" id="chevron-left"
+                        (click)="navigateToPreviousPage()"></a>
+            </div>
+            <div class=" ms-3 mt-2">
+                <h6 *ngIf="!shipmentNumber">Shipment Search Result</h6>
+                <div *ngIf="shipmentNumber">
+                    <div style="font-size: large; font-weight: bold;">Shipment Summary</div>
+                    <div>{{shipmentNumber}}</div>
+                </div>
+            </div>
+        </div>
+        <div class="">
+            <div class="btn btn-outline-primary" (click)="navigateToHomePage()">Close</div>
+        </div>
+    </div>
+</div>
