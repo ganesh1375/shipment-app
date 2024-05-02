@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomePageComponent } from './home-page.component';
 import { SearchService } from 'src/app/services/search.service';
-import { BehaviorSubject, throwError } from 'rxjs';
+import { BehaviorSubject, of, subscribeOn, throwError } from 'rxjs';
 import { FormControl, FormGroup, FormsModule, NgControl, NgForm, NgModel, NgModelGroup } from '@angular/forms';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 
@@ -13,7 +13,7 @@ describe('HomePageComponent', () => {
     searchAndNavigate: function (form: any) {
       return true;
     },
-    searchResultResponse$: new BehaviorSubject<any>('No Results Found')
+    searchResultResponse$: new BehaviorSubject<any>('No Results Found'),
   };
 
   beforeEach(() => {
@@ -57,6 +57,14 @@ describe('HomePageComponent', () => {
     }
     component.onSubmit(form);
     expect(searchService.searchAndNavigate).toHaveBeenCalledWith(form);
+  });
+
+  it('should hide warning on searchService error', () => {
+    const error = 'Test error';
+    searchService.searchResultResponse$ = new BehaviorSubject(null);
+    component.onSubmit(null);
+    searchService.searchResultResponse$.error(error);
+    expect(component.hideWarning).toBeTrue();
   });
 
   it('should reset form and set hideWarning to false on resetForm', () => {

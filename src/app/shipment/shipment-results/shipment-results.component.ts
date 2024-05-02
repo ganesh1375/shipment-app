@@ -14,7 +14,7 @@ export class ShipmentResultsComponent {
   showSearchResult = true;
 
   ngOnInit() {
-    this.searchResponse = JSON.parse(sessionStorage.getItem('searchResponse') || '');
+    this.searchResponse = JSON.parse(sessionStorage.getItem('searchResponse') as any);
   }
 
   navigateToShipmentDetailsPage(shipmentId: any) {

@@ -12,6 +12,7 @@ export class ShipmentDetailsComponent {
   shipmentNo: any;
   shipmentDetails: any;
   isCollapsed = true;
+  
   ngOnInit() {
     this.route.params.subscribe(data => {
       this.shipmentNo = data['id'];
